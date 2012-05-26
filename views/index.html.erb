@@ -8,7 +8,14 @@
     <meta name="author" content="">
 
     <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/css/laser.css" rel="stylesheet">
+
+     <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -36,7 +43,6 @@
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -45,11 +51,24 @@
 
     <div class="container">
 
+      <h1>Welcome to LASER</h1>
+      <div class="row-fluid">
+        <div class="span4">
+          <p class="recommender">Type in a username</p>
+        </div>
+        <div class="span4">
+          <input type="text" id="username" class="recommender typeahead" data-provide="typeahead">
+        </div>
+        <div class="span4">
+          <button id="recommend" class="recommender btn btn-primary">Recommend!</button>
+        </div>
+      </div>
+
     </div>
 
     <script src="/js/jquery.js"></script>
-    <script src="/js/bootstrap-min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/bootstrap-typeahead.js"></script>
-
+    <script src="/js/laser.js"></script>
   </body>
 </html>
