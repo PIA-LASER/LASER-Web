@@ -1,10 +1,12 @@
 require "rubygems"
 require "json"
 
+require "models/recommendation"
+
 # Recommendation API
 
 get "/api/recommendation" do
-  "returns API discovery"
+  "returns recommendation API discovery"
 end
 
 get "/api/recommendation/:username" do

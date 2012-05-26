@@ -1,6 +1,8 @@
 require "rubygems"
 require "json"
 
+require "models/users"
+
 # Users API
 
 get "/api/users" do
