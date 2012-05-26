@@ -1,4 +1,5 @@
 require "rubygems"
+require "json"
 
 # Users API
 
@@ -8,6 +9,10 @@ end
 
 get "/api/users/:username" do
   "returns #{params[:username]} as JSON"
+end
+
+get "/api/users/autocomplete" do
+  "returns search API discovery"
 end
 
 get "/api/users/autocomplete/:searchstring" do
