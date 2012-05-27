@@ -9,7 +9,7 @@ require 'set'
 
 configure do
   set :environment, :development
-  set :logger, Logger.new("logs/sinatra.log")
+  set :logger, Logger.new("#{File.dirname(__FILE__)}/logs/sinatra.log")
   set :redis_connection, Redis.new(:host => "127.0.0.1", :db => 0)
 end
 
