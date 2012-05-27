@@ -6,7 +6,8 @@ require "models/users"
 # Users API
 
 get "/api/users" do
-  "returns all users as JSON"
+  content_type :json
+  Users.all.to_json
 end
 
 get "/api/users/:username" do
