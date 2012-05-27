@@ -10,12 +10,23 @@ require './laser'
 def add_user(user, recommendations)
   redis = Redis.new
   recommendations.times do
-    redis.zadd("users.#{user}", rand, (0...8).map{65.+(rand(25)).chr}.join)
+    redis.zadd("users.#{user}", rand, random_string(8))
   end
+
+  user
 end
 
 def add_users(base, amount)
-  amount.times do |i|
-    add_user(base + i.to_s, 10)
+  (0...amount).map do |cnt|
+    add_user(base + random_string(8), 10)
   end
+end
+
+def random_string(length)
+  (0...length).map{65.+(rand(25)).chr}.join
+end
+
+def clear_users
+  redis = Redis.new
+  redis.flushdb
 end
