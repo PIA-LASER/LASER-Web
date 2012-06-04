@@ -14,6 +14,10 @@ get "/api/users/:username" do
   Users.get(params[:username]).to_json
 end
 
+get "/api/users/:username/limit/:amount" do
+  Users.get(params[:username], params[:amount].to_i - 1).to_json
+end
+
 get "/api/users/autocomplete" do
   "returns search API discovery"
 end

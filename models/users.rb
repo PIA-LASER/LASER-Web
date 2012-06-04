@@ -15,9 +15,9 @@ class Users
     end
   end
 
-  def self.get(name, rec_amount = -1)
+  def self.get(name, amount = -1)
     key = "#{NAMESPACE}#{name}"
-    recs = redis.zrevrange(key, 0, rec_amount)
+    recs = redis.zrevrange(key, 0, amount)
 
     recommendations = recs.map do |item|
       score = redis.zscore(key, item)

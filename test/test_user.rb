@@ -44,6 +44,14 @@ class TestUserAPI < MiniTest::Unit::TestCase
     compare_users(expected_user, actual_user)
   end
 
+  def test_user_limit
+    expected_user = add_user("newuser", 100)
+    get "/api/users/#{expected_user["name"]}/limit/42"
+    assert last_response.ok?
+    actual_user = JSON.parse(last_response.body)
+    assert_equal 42, actual_user["recommendations"].size
+  end
+
   def compare_users(expected_user, actual_user)
     assert_equal expected_user["name"], actual_user["name"]
     assert_equal expected_user["href"], actual_user["href"]
@@ -53,5 +61,6 @@ class TestUserAPI < MiniTest::Unit::TestCase
     actual_recommendations = actual_user["recommendations"].sort_by { |hsh| hsh["score"] }
     assert_equal expected_recommendations, actual_recommendations
   end
+
 
 end
