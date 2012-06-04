@@ -11,7 +11,7 @@ get "/api/users" do
 end
 
 get "/api/users/:username" do
-  "returns #{params[:username]} as JSON"
+  Users.get(params[:username]).to_json
 end
 
 get "/api/users/autocomplete" do

@@ -7,13 +7,13 @@ require 'json'
 
 require './laser'
 
-def add_user(user, recommendations)
+def add_user(name, recommendations)
   redis = Redis.new
   recommendations.times do
-    redis.zadd("users.#{user}", rand, random_string(8))
+    redis.zadd("users.#{name}", rand, random_string(8))
   end
 
-  user
+  { "name" => name }
 end
 
 def add_users(base, amount)
