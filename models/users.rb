@@ -10,14 +10,25 @@ class Users
 
   def self.find(name)
     redis.keys("#{NAMESPACE}#{name}").map do |user|
-      { :name => user.gsub(NAMESPACE, "") }
+      name = user.gsub(NAMESPACE, "")
+      get(name)
     end
   end
 
   def self.get(name, rec_amount = -1)
-    redis.zrevrange("#{NAMESPACE}#{name}", 0, rec_amount)
+    key = "#{NAMESPACE}#{name}"
+    recs = redis.zrevrange(key, 0, rec_amount)
 
-      { :name => name }
+    recommendations = recs.map do |item|
+      score = redis.zscore(key, item)
+
+      { :item => item, :score => score }
+    end
+
+    { :name => name,
+      :href => "/api/users/#{name}",
+      :recommendations => recommendations
+    }
   end
 
   private

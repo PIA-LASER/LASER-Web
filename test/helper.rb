@@ -9,11 +9,19 @@ require './laser'
 
 def add_user(name, recommendations)
   redis = Redis.new
-  recommendations.times do
-    redis.zadd("users.#{name}", rand, random_string(8))
+  recommendations = (0..recommendations).map do
+    item = random_string(8)
+    score = rand
+    redis.zadd("users.#{name}", score, item)
+
+    { "item" => item, "score" => score }
   end
 
-  { "name" => name }
+  {
+    "name" => name,
+    "href" => "/api/users/#{name}",
+    "recommendations" => recommendations
+  }
 end
 
 def add_users(base, amount)
