@@ -8,6 +8,7 @@ get "/api" do
 
   {
     :users => { :href => "/api/users" },
-    :recommendation => { :href => "/api/recommendation" }
+    :autocompletion => { :href => "/api/autocompletion" },
+    :url => { :href => "/api/urls" }
   }.to_json
 end

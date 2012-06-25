@@ -10,8 +10,7 @@ class Users < Model
   end
 
   def self.find(name)
-    redis.keys("#{NAMESPACE}#{name}").map do |user|
-      name = user.gsub(NAMESPACE, "")
+    keys(name).map do |name|
       get(name)
     end
   end
@@ -26,10 +25,25 @@ class Users < Model
       { :item => item, :score => score }
     end
 
-    { :name => name,
+    {
+      :name => name,
       :href => "/api/users/#{name}",
       :recommendations => recommendations
     }
+  end
+
+  def self.keys(search_clause)
+    redis.keys("#{NAMESPACE}#{search_clause}").map do |user|
+      user.gsub(NAMESPACE, "")
+    end
+  end
+
+  def self.search_keys(search_clause, limit = -1)
+    limit = limit.to_i
+    found_keys = keys(search_clause)
+    found_keys = found_keys.first(limit) if limit > 0
+
+    { :results => found_keys}
   end
 
 end
