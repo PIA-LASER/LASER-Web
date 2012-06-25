@@ -11,4 +11,3 @@ get "/api" do
     :recommendation => { :href => "/api/recommendation" }
   }.to_json
 end
-

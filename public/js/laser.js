@@ -9,7 +9,9 @@ getUserRecommendations = function(userId) {
 
   $.getJSON('/api/users/' + userId, function (data) {
     $.each(data['recommendations'], function (itemId) {
-      $('#links').append('<tr><td>' + data['recommendations'][itemId]['item'] + '</td><td>' + data['recommendations'][itemId]['score'] + '</td></tr>');
+     $.getJSON('/api/urls/' + data['recommendations'][itemId]['item'], function (data_mapped) {
+	$('#links').append('<tr><td><a href=\"' +  data_mapped['url']+ '\">'+ data_mapped['title'] + '</a> </td><td>' + data['recommendations'][itemId]['item'] + '</td></tr>');
+     });
     });
   }).error(function (data) {
     if(data.status == 404) {
