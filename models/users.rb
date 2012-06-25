@@ -1,7 +1,8 @@
 require "rubygems"
 require "json"
+require "lib/model"
 
-class Users
+class Users < Model
   NAMESPACE = 'users.'
 
   def self.all
@@ -29,12 +30,6 @@ class Users
       :href => "/api/users/#{name}",
       :recommendations => recommendations
     }
-  end
-
-  private
-
-  def self.redis
-    settings.redis_connection
   end
 
 end
