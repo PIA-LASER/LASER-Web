@@ -33,43 +33,41 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">LASER</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div class="page-header">
+            <h1>LASER <small>Large Scale Article Recommender</small></h1>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="container">
-      <div class="span12">
-
+      <div class="span3" style="margin-left: 0;">
         <div class="row">
-          <div class="span4">
-            <h1>Welcome to LASER</h1>
+          <div class="span3">
+            <div class="well">
+              <ul class="nav nav-list">
+                <li class="nav-header">Menu</li>
+                <li class="active"><a href="#">Recommendations</a></li>
+                <li><a href="#">Hot</a></li>
+                <li><a href="#">Your Articles</a></li>
+                <li class="nav-header">Administration</li>
+                <li><a href="http://master:50030">Hadoop MapReduce</a></li>
+                <li><a href="http://master:50070">HDFS</a></li>
+                <li><a href="http://master:8080">Load Monitoring</a></li>
+                <li><a href="#">About</a></li>
+              </ul> 
+            </div>
+          </div>
+          <div class="span3">
             <p class="recommender">Type in a username</p>
             <input type="text" id="username" class="recommender typeahead" data-provide="typeahead">
             <button id="recommend" class="recommender btn btn-primary">Recommend!</button>
           </div>
-
-          <div class="span8">
-            <h2>Links</h2>
-            <table id="links" class="table table-striped">
-            </table>
-          </div>
         </div>
+      </div>
+      <div class="span9" style="marging-left: 19px;">
+        <table id="links" class="table table-striped">
+        </table>
       </div>
     </div>
 
