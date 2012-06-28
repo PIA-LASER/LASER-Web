@@ -18,4 +18,8 @@ class LaserURL < Model
     }
   end
 
+  def self.get_popular
+    urls = redis.zrange("urls.popular",0,-1)
+    urls
+  end
 end

@@ -6,8 +6,6 @@ require "models/url"
 
 p __ENCODING__
 
-
 get "/api/urls/:urlid" do
   LaserURL.get(params[:urlid]).to_json
 end
-
