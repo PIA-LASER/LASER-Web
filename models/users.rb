@@ -1,10 +1,6 @@
-#<Encoding:UTF-8>
-
 require "rubygems"
 require "json"
 require "lib/model"
-
-p __ENCODING__
 
 class Users < Model
   USER_NAMESPACE = 'users.'
@@ -21,8 +17,7 @@ class Users < Model
   end
 
   def self.get(name, amount = -1)
-    key = "#{NAMESPACE}#{name}"
-    puts key
+    key = "#{USER_NAMESPACE}#{name}"
     recs = redis.zrevrange(key, 0, amount)
 
     recommendations = recs.map do |item|
