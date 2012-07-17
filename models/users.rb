@@ -21,7 +21,7 @@ class Users < Model
     recs = redis.zrevrange(key, 0, amount)
 
     recommendations = recs.map do |item|
-      score_recommendations(item)
+      score_recommendations(item, name)
     end.sort { |a, b| a[:score] <=> b[:score] }
 
     {
@@ -31,7 +31,7 @@ class Users < Model
     }
   end
 
-  def self.score_recommendations(item)
+  def self.score_recommendations(item, name)
     user_key = "#{USER_NAMESPACE}#{name}"
     url_key = "#{URL_NAMESPACE}#{item}"
 
