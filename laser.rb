@@ -10,7 +10,7 @@ require 'set'
 configure do
   set :environment, :development
   set :logger, Logger.new("#{File.dirname(__FILE__)}/logs/sinatra.log")
-  set :redis_connection, Redis.new(:host => "127.0.0.1", :db => 0)
+  set :redis_connection, Redis.new(:host => "master", :db => 0)
 end
 
 # Load all controllers
