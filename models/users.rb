@@ -3,7 +3,8 @@ require "json"
 require "lib/model"
 
 class Users < Model
-  NAMESPACE = 'users.'
+  USER_NAMESPACE = 'users.'
+  URL_NAMESPACE = 'urls.'
 
   def self.all
     find("*")
@@ -16,14 +17,12 @@ class Users < Model
   end
 
   def self.get(name, amount = -1)
-    key = "#{NAMESPACE}#{name}"
+    key = "#{USER_NAMESPACE}#{name}"
     recs = redis.zrevrange(key, 0, amount)
 
     recommendations = recs.map do |item|
-      score = redis.zscore(key, item)
-
-      { :item => item, :score => score }
-    end
+      score_recommendations(item)
+    end.sort { |a, b| a[:score] <=> b[:score] }
 
     {
       :name => name,
@@ -32,9 +31,23 @@ class Users < Model
     }
   end
 
+  def self.score_recommendations(item)
+    user_key = "#{USER_NAMESPACE}#{name}"
+    url_key = "#{URL_NAMESPACE}#{item}"
+
+    timestamp = redis.get("#{url_key}.timestamp")
+    popularity = redis.get("#{url_key}.popularity")
+    preference = redis.zscore(user_key, item)
+    time_delta = ((Time.now - Time.at(timestamp)) / 3600).to_i
+
+    score = (popularity / ((time_delta ^ 1.8) + 1)) * preference
+
+    { :item => item, :score => score }
+  end
+
   def self.keys(search_clause)
-    redis.keys("#{NAMESPACE}#{search_clause}").map do |user|
-      user.gsub(NAMESPACE, "")
+    redis.keys("#{USER_NAMESPACE}#{search_clause}").map do |user|
+      user.gsub(USER_NAMESPACE, "")
     end
   end
 
