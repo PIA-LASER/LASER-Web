@@ -22,7 +22,7 @@ class Users < Model
 
     recommendations = recs.map do |item|
       score_recommendations(item, name)
-    end.sort { |a, b| a[:score] <=> b[:score] }
+    end.sort { |a, b| a[:score] <=> b[:score] }.reverse
 
     {
       :name => name,
