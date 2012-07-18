@@ -38,9 +38,10 @@ class Users < Model
     timestamp = redis.get("#{url_key}.timestamp")
     popularity = redis.get("#{url_key}.popularity")
     preference = redis.zscore(user_key, item)
-    time_delta = ((Time.now - Time.at(timestamp)) / 3600).to_i
 
-    score = (popularity / ((time_delta ^ 1.8) + 1)) * preference
+    time_delta = ((Time.now.to_i - Time.at(timestamp.to_i).to_i) / 3600).to_i
+
+    score = (popularity.to_i / ((time_delta ** 1.8) + 1)) * preference
 
     { :item => item, :score => score }
   end
