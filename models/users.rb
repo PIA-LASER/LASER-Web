@@ -18,7 +18,12 @@ class Users < Model
 
   def self.get(name, amount = -1)
     key = "#{USER_NAMESPACE}#{name}"
-    recs = redis.zrevrange(key, 0, amount)
+    linkKey = "user.#{name}.links"
+	puts linkKey 
+   recs = redis.zrevrange(key, 0, amount)
+    links = redis.lrange(linkKey,0,amount)
+
+	puts links.inspect	
 
     recommendations = recs.map do |item|
       score_recommendations(item, name)
@@ -27,7 +32,8 @@ class Users < Model
     {
       :name => name,
       :href => "/api/users/#{name}",
-      :recommendations => recommendations
+      :recommendations => recommendations,
+      :links => links
     }
   end
 
